@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "windows.h": "c",
+        "paintmaster.h": "c",
+        "paintshapes.h": "c",
+        "wingdi.h": "c"
+    }
+}
