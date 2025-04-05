@@ -28,7 +28,16 @@ void drawText(HDC hdc, HWND hwnd, char ch[]){
 }
 void drawRHOMBUS(HDC hdc, HWND hwnd, RHOMBUS rh, COLORREF colorref){
     RHOMBUS e = rh;
-    LONG x = e.x;
+
+    POINT coordinsates[5] = {{e.x+(e.sx/2),e.y}, //верхняя точка
+                        {e.x,e.y+(e.sy/2)}, //левая точка
+                        {e.x+(e.sx/2),e.y+e.sy}, //нижняя точка
+                        {e.x+e.sx,e.y+(e.sy/2)}, //Правая точка
+                        {e.x+(e.sx/2),e.y}};
+
+    Polyline(hdc, coordinsates, 5);
+    ///////UNOPTIMIZE CODE//////////
+    /*LONG x = e.x;
     LONG y = e.y;
     LONG sizeX = e.sx/e.sy;
     LONG sizeY = e.sy/e.sx;
@@ -53,5 +62,5 @@ void drawRHOMBUS(HDC hdc, HWND hwnd, RHOMBUS rh, COLORREF colorref){
             sizeY+=e.sy/e.sx;
             x+=1;
         }
-    }
+    }*/
 }

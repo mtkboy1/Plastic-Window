@@ -1,4 +1,5 @@
 #include <windows.h>
+#include<wingdi.h>
 #include"PaintShapes.h"
 #include "PaintMaster.h"
 LRESULT CALLBACK WinProc(HWND, UINT, WPARAM, LPARAM);
@@ -46,7 +47,6 @@ LRESULT CALLBACK WinProc(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM lparam){
     case WM_PAINT:
         hdc = BeginPaint(hwnd, &ps);
         r = initRect(0,0,50,50);
-        
         DrawFocusRect(hdc,&r);
         EndPaint(hwnd, &ps);
         break;
@@ -62,6 +62,7 @@ LRESULT CALLBACK WinProc(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM lparam){
         ell.sy = 100;
         ell.x = 100;
         ell.y = 100;
+
         drawRHOMBUS(hdc,hwnd,ell,RGB(255,0,0));
         EndPaint(hwnd, &ps);
         break;
