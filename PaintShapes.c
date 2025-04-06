@@ -47,11 +47,18 @@ void drawRHOMBUS(HDC hdc, HWND hwnd, RHOMBUS rh, COLORREF color, int size){
 }
 void drawELLIPSE(HDC hdc, HWND hwnd, ELLIPSE el, COLORREF color, int size){
     ELLIPSE e = el;
-
-    HPEN pen = CreatePen(PS_SOLID, size, color);
-    SelectObject(hdc, pen);
-
-    LONG FinalPointX = e.x+e.sx;
-    LONG FinalPointY = e.y+e.sy;
-    Arc(hdc,e.x,e.y,e.x+e.sx,e.y+e.sy,FinalPointX,FinalPointY,FinalPointX,FinalPointY);
+    if(color != NULL||size != NULL){
+        HPEN pen = CreatePen(PS_SOLID, size, color);
+        SelectObject(hdc, pen);
+        LONG FinalPointX = e.x+e.sx;
+        LONG FinalPointY = e.y+e.sy;
+        Arc(hdc,e.x,e.y,e.x+e.sx,e.y+e.sy,FinalPointX,FinalPointY,FinalPointX,FinalPointY);
+        DeleteObject(pen);
+    } else {
+        HPEN pen = CreatePen(PS_SOLID, size, color);
+        SelectObject(hdc, pen);
+        LONG FinalPointX = e.x+e.sx;
+        LONG FinalPointY = e.y+e.sy;
+        Arc(hdc,e.x,e.y,e.x+e.sx,e.y+e.sy,FinalPointX,FinalPointY,FinalPointX,FinalPointY);
+    }
 }

@@ -46,7 +46,7 @@ HWND createBaseWindow(LPCWSTR className, LPCWSTR wName, HINSTANCE hinstance){
     return window;
 }
 
-void initWNDCLASS(PaintWindow p){
+void initWNDCLASS(PaintWindow p, HWND hwnd){
     WNDCLASS wndclass;
     wndclass.lpfnWndProc = p.wndProc;
     wndclass.cbClsExtra = 0;
@@ -62,6 +62,13 @@ void initWNDCLASS(PaintWindow p){
     if (!RegisterClass(&wndclass)) {
         MessageBox(NULL, "Cannot register class", "Error", MB_OK);
         return 0;
+    }
+    ShowWindow(hwnd, 0);
+}
+void MSG_GETTER(MSG *msg, HWND hwnd){
+    while(GetMessage(&msg,hwnd,0,0)){
+        TranslateMessage(&msg);
+        DispatchMessage(&msg);
     }
 }
 void setBackgroundBrush(HWND hwnd, LONG newVal){
