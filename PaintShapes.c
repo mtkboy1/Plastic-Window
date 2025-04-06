@@ -13,6 +13,12 @@ typedef struct{
     LONG sx;
     LONG sy;
 } RHOMBUS;
+typedef struct{
+    LONG x;
+    LONG y;
+    LONG sx;
+    LONG sy;
+} ELLIPSE;
 RECT initRect(LONG x, LONG y, LONG sizeX, LONG sizeY){
     RECT r;
     r.left = x;
@@ -26,41 +32,26 @@ void drawText(HDC hdc, HWND hwnd, char ch[]){
     GetClientRect(hwnd, &r);
     DrawText(hdc,ch, sizeof(ch)/sizeof(ch[0]), &r, DT_BOTTOM);
 }
-void drawRHOMBUS(HDC hdc, HWND hwnd, RHOMBUS rh, COLORREF colorref){
+void drawRHOMBUS(HDC hdc, HWND hwnd, RHOMBUS rh, COLORREF color, int size){
     RHOMBUS e = rh;
+
+    HPEN pen = CreatePen(PS_SOLID, size, color);
+    SelectObject(hdc, pen);
 
     POINT coordinsates[5] = {{e.x+(e.sx/2),e.y}, //верхняя точка
                         {e.x,e.y+(e.sy/2)}, //левая точка
                         {e.x+(e.sx/2),e.y+e.sy}, //нижняя точка
                         {e.x+e.sx,e.y+(e.sy/2)}, //Правая точка
                         {e.x+(e.sx/2),e.y}};
-
     Polyline(hdc, coordinsates, 5);
-    ///////UNOPTIMIZE CODE//////////
-    /*LONG x = e.x;
-    LONG y = e.y;
-    LONG sizeX = e.sx/e.sy;
-    LONG sizeY = e.sy/e.sx;
-    COLORREF color = colorref;
-    if(e.sx>e.sy){
-        while(y<e.y+e.sy){
-            for(LONG XC=e.x-(sizeX/2)+1; XC<e.x+(sizeX/2)+1; XC++){
-                SetPixel(hdc,XC,y,color);
-            }
-            if(y<e.y+((e.sy)/2)){
-                sizeX+=e.sx/e.sy+1;
-            } else {
-                sizeX-=e.sx/e.sy+1;
-            }
-            y+=1;
-        }
-    } else {
-        while(x<e.x+e.sx){
-            for(LONG YC=e.y-(sizeY/2); YC<e.y+(sizeY/2); YC++){
-                SetPixel(hdc,YC,y,color);
-            }
-            sizeY+=e.sy/e.sx;
-            x+=1;
-        }
-    }*/
+}
+void drawELLIPSE(HDC hdc, HWND hwnd, ELLIPSE el, COLORREF color, int size){
+    ELLIPSE e = el;
+
+    HPEN pen = CreatePen(PS_SOLID, size, color);
+    SelectObject(hdc, pen);
+
+    LONG FinalPointX = e.x+e.sx;
+    LONG FinalPointY = e.y+e.sy;
+    Arc(hdc,e.x,e.y,e.x+e.sx,e.y+e.sy,FinalPointX,FinalPointY,FinalPointX,FinalPointY);
 }

@@ -57,13 +57,13 @@ LRESULT CALLBACK WinProc(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM lparam){
         DrawFocusRect(hdc,&r);
         drawText(hdc, hwnd, "HUY");
 
-        RHOMBUS ell;
-        ell.sx = 200;
+        ELLIPSE ell;
+        ell.sx = 100;
         ell.sy = 100;
         ell.x = 100;
         ell.y = 100;
 
-        drawRHOMBUS(hdc,hwnd,ell,RGB(255,0,0));
+        drawELLIPSE(hdc,hwnd,ell);
         EndPaint(hwnd, &ps);
         break;
     default:
