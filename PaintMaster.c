@@ -36,17 +36,18 @@ PaintWindow initPaintWindow(UINT style, WNDPROC WndProc,
     return window;
 }
 
-HWND createBaseWindow(LPCWSTR className, LPCWSTR wName, HINSTANCE hinstance){
+HWND createBaseWindow(LPCWSTR className, LPCWSTR wName, HINSTANCE hinstance, HWND hwnd, int cmdshow){
     HWND window;
     if(className==NULL){
         window = CreateWindow("NULL", wName, WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, NULL, NULL, hinstance, NULL);
     } else {
         window = CreateWindow(className, wName, WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, NULL, NULL, hinstance, NULL);
     }
+    ShowWindow(window, cmdshow);
     return window;
 }
 
-void initWNDCLASS(PaintWindow p, HWND hwnd){
+void initWNDCLASS(PaintWindow p){
     WNDCLASS wndclass;
     wndclass.lpfnWndProc = p.wndProc;
     wndclass.cbClsExtra = 0;
@@ -63,7 +64,6 @@ void initWNDCLASS(PaintWindow p, HWND hwnd){
         MessageBox(NULL, "Cannot register class", "Error", MB_OK);
         return 0;
     }
-    ShowWindow(hwnd, 0);
 }
 void MSG_GETTER(MSG *msg, HWND hwnd){
     while(GetMessage(&msg,hwnd,0,0)){

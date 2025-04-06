@@ -10,16 +10,11 @@ int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE hprev, LPSTR lp, int cmdshow){
     PaintWindow p;
     p = initPaintWindow((UINT) NULL, WinProc, hinstance, NULL, NULL, NULL, NULL, NULL);
     initWNDCLASS(p);
-   /*if (!RegisterClass(&cls)) {
-        MessageBox(NULL, "Cannot register class", "Error", MB_OK);
-        return 0;
-    }*/
-    wmain = createBaseWindow(NULL, "Hello",hinstance);
+    wmain = createBaseWindow(NULL, "Hello",hinstance,wmain,cmdshow);
     if (!wmain) {
         MessageBox(NULL, "Cannot create main window", "Error", MB_OK);
         return 0;
     }
-    ShowWindow(wmain, cmdshow);
     while(GetMessage(&msg,wmain,0,0)){
         TranslateMessage(&msg);
         DispatchMessage(&msg);
