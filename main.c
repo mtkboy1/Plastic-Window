@@ -52,18 +52,12 @@ LRESULT CALLBACK WinProc(HWND hwnd, UINT umsg, WPARAM wparam, LPARAM lparam){
         break;
     case WM_SIZE:
         hdc = BeginPaint(hwnd, &ps);
+
         xs+=1;
         r = initRect(xs,100,50,50);
         DrawFocusRect(hdc,&r);
         drawText(hdc, hwnd, "HUY");
 
-        ELLIPSE ell;
-        ell.sx = 100;
-        ell.sy = 100;
-        ell.x = 100;
-        ell.y = 100;
-
-        drawELLIPSE(hdc,hwnd,ell);
         EndPaint(hwnd, &ps);
         break;
     default:
